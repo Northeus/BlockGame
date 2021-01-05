@@ -65,7 +65,7 @@
   * Game logic
   * Math functions
 
-###### Renderer:
+##### Renderer:
   * Renderer interface:
     - Render chunks
     - Render GUI ( inventory, status, etc. )
@@ -79,19 +79,19 @@
     - Loader for atlas
   * Model
 
-#### Input handler:
+##### Input handler:
   * Input for screen rotation
   * Cursor handling:
     - Menu
     - Inventory
   * Keyboard
 
-#### File handler:
+##### File handler:
   * Interface for storing data
   * Own fileformat:
     - Random access
 
-#### Game logic:
+##### Game logic:
   * Menu
   * Player:
     - Jump
@@ -102,5 +102,5 @@
     - Usage
     - Durability
 
-#### Math functions:
+##### Math functions:
   * Noise functions
