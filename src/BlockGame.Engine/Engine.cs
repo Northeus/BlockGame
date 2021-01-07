@@ -1,3 +1,6 @@
+using BlockGame.Renderer;
+
+using OpenTK.Graphics.OpenGL4;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
@@ -33,8 +36,26 @@ namespace BlockGame.Glue
         /// Is executed when <c> Run() </c> is called.
         /// Should be used for resource initialization.
         /// </summary>
+
+        // TODO remove testing code
+        private Model model;
+
         protected override void OnLoad()
         {
+            // TODO remove testing code
+            GL.ClearColor( 0.1f, 0.1f, 0.1f, 1.0f );
+            model = new Model( new Vertex[0] {}, new uint[0] {} );
+            model.Vertices = new Vertex[4] {
+                new Vertex( -0.5f,  0.5f, 0.5f ),
+                new Vertex( -0.5f, -0.5f, 0.5f ),
+                new Vertex(  0.5f, -0.5f, 0.5f ),
+                new Vertex(  0.5f,  0.5f, 0.5f ),
+            };
+            model.Indices = new uint[6] {
+                1, 0, 3,
+                1, 2, 3
+            };
+
             base.OnLoad();
         }
 
@@ -44,6 +65,9 @@ namespace BlockGame.Glue
         /// </summary>
         protected override void OnUnload()
         {
+            // TODO wrap this.
+            Model.CleanUp();
+
             base.OnUnload();
         }
 
@@ -68,7 +92,26 @@ namespace BlockGame.Glue
         /// <param cref="args"> Event arguments for frame. </param>
         protected override void OnRenderFrame( FrameEventArgs args )
         {
+            // TODO remove testing code
+            GL.Clear( ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit );
+            model.Draw();
+
+            SwapBuffers();
+
             base.OnRenderFrame( args );
+        }
+
+        /// <summary>
+        /// Rise on every resize of window. Might be used to adjust
+        /// renderer view on window.
+        /// </summary>
+        protected override void OnResize( ResizeEventArgs args )
+        {
+            // TODO make irenderer wrapper
+            GL.Viewport( 0, 0, Size.X, Size.Y );
+
+            base.OnResize( args );
+
         }
     }
 }
