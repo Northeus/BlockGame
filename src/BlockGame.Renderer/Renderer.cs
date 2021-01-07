@@ -1,4 +1,6 @@
-namespace BlockGame.Renderer
+using OpenTK.Graphics.OpenGL4;
+
+namespace BlockGame.Graphics
 {
     /// <summary>
     /// Singleton class for rendering, check example for tips how to use it.
@@ -26,20 +28,34 @@ namespace BlockGame.Renderer
 
         private Renderer()
         {
-
-        }
-
-        public void CleanUp()
-        {
-
+            GL.ClearColor( 0.1f, 0.1f, 0.1f, 1.0f );
         }
     }
 
     /// <summary>
-    /// Implementation of IRenderer interface.
+    /// Implementation of <see cref="IRenderer"/> interface.
     /// </summary>
-    public partial class Renderer : IRenderer
+     public partial class Renderer : IRenderer
     {
-        // TODO
+        public void ClearScreen()
+        {
+            GL.Clear( ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit );
+        }
+
+        public void CleanUp()
+        {
+            Model.CleanUp();
+        }
+
+        public void OnResize( int width, int height )
+        {
+            GL.Viewport( 0, 0, width, height );
+        }
+
+        // TODO remove
+        public void Draw( Model model )
+        {
+            model.Draw();
+        }
     }
 }

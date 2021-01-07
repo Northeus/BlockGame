@@ -2,7 +2,7 @@ using OpenTK.Graphics.OpenGL4;
 
 using System.Linq;
 
-namespace BlockGame.Renderer
+namespace BlockGame.Graphics
 {
     /// <summary>
     /// Class representing OpeGL model which can be simply drawn after

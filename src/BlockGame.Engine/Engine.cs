@@ -1,4 +1,4 @@
-using BlockGame.Renderer;
+using BlockGame.Graphics;
 
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Windowing.Common;
@@ -22,6 +22,8 @@ namespace BlockGame.Glue
     /// </example>
     public class Engine : GameWindow
     {
+        private IRenderer _renderer;
+
         /// <summary>
         /// Create window with default settings.
         /// <see cref="WindowSettings.cs"/> for related settings.
@@ -29,7 +31,7 @@ namespace BlockGame.Glue
         public Engine():
             base( WindowSettings.GameWindow, WindowSettings.NativeWindow )
         {
-
+            _renderer = Renderer.Instance;
         }
 
         /// <summary>
@@ -42,8 +44,6 @@ namespace BlockGame.Glue
 
         protected override void OnLoad()
         {
-            // TODO remove testing code
-            GL.ClearColor( 0.1f, 0.1f, 0.1f, 1.0f );
             model = new Model( new Vertex[0] {}, new uint[0] {} );
             model.Vertices = new Vertex[4] {
                 new Vertex( -0.5f,  0.5f, 0.5f ),
@@ -65,8 +65,7 @@ namespace BlockGame.Glue
         /// </summary>
         protected override void OnUnload()
         {
-            // TODO wrap this.
-            Model.CleanUp();
+            _renderer.CleanUp();
 
             base.OnUnload();
         }
@@ -92,9 +91,9 @@ namespace BlockGame.Glue
         /// <param cref="args"> Event arguments for frame. </param>
         protected override void OnRenderFrame( FrameEventArgs args )
         {
-            // TODO remove testing code
-            GL.Clear( ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit );
-            model.Draw();
+            _renderer.ClearScreen();
+
+            _renderer.Draw( model );
 
             SwapBuffers();
 
@@ -107,11 +106,9 @@ namespace BlockGame.Glue
         /// </summary>
         protected override void OnResize( ResizeEventArgs args )
         {
-            // TODO make irenderer wrapper
-            GL.Viewport( 0, 0, Size.X, Size.Y );
+            _renderer.OnResize( Size.X, Size.Y );
 
             base.OnResize( args );
-
         }
     }
 }

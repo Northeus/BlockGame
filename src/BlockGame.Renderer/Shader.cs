@@ -6,7 +6,7 @@ using System.IO;
 using System.Text;
 using System.Collections.Generic;
 
-namespace BlockGame.Renderer
+namespace BlockGame.Graphics
 {
     /// <summary>
     /// Handler for OpenGL shaders cappable of loading and compiling them

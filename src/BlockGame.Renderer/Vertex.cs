@@ -1,4 +1,4 @@
-namespace BlockGame.Renderer
+namespace BlockGame.Graphics
 {
     /// <summary>
     /// Representation of one vertex, storing data needed to be drawn.
