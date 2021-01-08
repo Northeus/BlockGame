@@ -44,12 +44,13 @@ namespace BlockGame.Glue
 
         protected override void OnLoad()
         {
-            model = new Model( new Vertex[0] {}, new uint[0] {} );
+            model = new Model( new Vertex[0] {}, new uint[0] {},
+                               new Texture( "../Resources/Box.png" ) );
             model.Vertices = new Vertex[4] {
-                new Vertex( -0.5f,  0.5f, 0.5f ),
-                new Vertex( -0.5f, -0.5f, 0.5f ),
-                new Vertex(  0.5f, -0.5f, 0.5f ),
-                new Vertex(  0.5f,  0.5f, 0.5f ),
+                new Vertex( -0.5f,  0.5f, 0.5f, 0.0f, 1.0f ),
+                new Vertex( -0.5f, -0.5f, 0.5f, 0.0f, 0.0f ),
+                new Vertex(  0.5f, -0.5f, 0.5f, 1.0f, 0.0f ),
+                new Vertex(  0.5f,  0.5f, 0.5f, 1.0f, 1.0f ),
             };
             model.Indices = new uint[6] {
                 1, 0, 3,
