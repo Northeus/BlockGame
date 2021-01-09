@@ -100,11 +100,7 @@ namespace BlockGame.Glue
             _renderer.ClearScreen();
 
             _renderer.UpdateView( _camera );
-
-            System.Console.WriteLine( _camera.RotationX );
-            System.Console.WriteLine( _camera.RotationY );
             // TODO remove test code
-
             model.Draw();
             System.Console.WriteLine( "\n" + (1.0f / args.Time).ToString() );
 
