@@ -10,7 +10,7 @@ namespace BlockGame.Graphics
     /// </summary>
     public class Model
     {
-        private static readonly Shader _shader = new Shader(
+        public static readonly Shader _shader = new Shader(
             "BlockGame.Graphics/Shaders/ModelShader.vert",
             "BlockGame.Graphics/Shaders/ModelShader.frag"
         );

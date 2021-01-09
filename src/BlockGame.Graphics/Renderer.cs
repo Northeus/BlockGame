@@ -44,6 +44,13 @@ namespace BlockGame.Graphics
             GL.Clear( ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit );
         }
 
+        public void UpdateView( Camera camera )
+        {
+            // TODO bubble functionality up
+            Model._shader.LoadMatrix4( "view", camera.ViewMatrix );
+            Model._shader.LoadMatrix4( "projection", camera.ProjectionMatrix );
+        }
+
         public void OnResize( int width, int height )
         {
             GL.Viewport( 0, 0, width, height );

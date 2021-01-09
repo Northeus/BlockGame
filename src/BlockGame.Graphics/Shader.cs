@@ -81,6 +81,22 @@ namespace BlockGame.Graphics
             GL.Uniform2( _uniformLocations[ name ], vector );
         }
 
+        /// <summary>
+        /// Load 4 x 4 matrix of floats into uniform. Method will
+        /// also bind shader, which call this method.
+        /// <exception>
+        /// There must be item in dictionary under given name.
+        /// </exception>
+        /// </summary>
+        /// <param cref="name"> Name of uniform storing mat4. </param>
+        /// <param cref="vector"> 4 x 4 matrix of floats. </param>
+        public void LoadMatrix4( string name, Matrix4 matrix )
+        {
+            GL.UseProgram( _handle );
+
+            GL.UniformMatrix4( _uniformLocations[ name ], true, ref matrix );
+        }
+
         private static int CreateShader( string path, ShaderType shaderType )
         {
             string source = LoadSource( path );

@@ -11,6 +11,11 @@ namespace BlockGame.Graphics
         void ClearScreen();
 
         /// <summary>
+        /// Adjust view using <c> Camera </c>.
+        /// </summary>
+        void UpdateView( Camera camera );
+
+        /// <summary>
         /// Every time window is resized, this method is called with new
         /// window parameters, so renderer can adjust own settings.
         /// </summary>

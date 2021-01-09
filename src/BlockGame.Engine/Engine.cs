@@ -1,4 +1,5 @@
 using BlockGame.Graphics;
+using BlockGame.Input;
 
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Windowing.Common;
@@ -34,6 +35,8 @@ namespace BlockGame.Glue
             _renderer = Renderer.Instance;
 
             VSync = VSyncMode.Off;
+
+            CursorGrabbed = true;
         }
 
         /// <summary>
@@ -43,12 +46,15 @@ namespace BlockGame.Glue
 
         // TODO remove testing code
         private ChunkModel model;
+        private Camera _camera;
 
         protected override void OnLoad()
         {
             // TODO remove test code
             model = new ChunkModel();
             model.Update();
+            _camera = new Camera( ( float ) Size.X / Size.Y );
+            ControlCamera.BindCamera( _camera );
 
             base.OnLoad();
         }
@@ -68,6 +74,14 @@ namespace BlockGame.Glue
         /// <param creaf="args"> Event arguments for frame. </param>
         protected override void OnUpdateFrame( FrameEventArgs args )
         {
+            if ( ! IsFocused )
+            {
+                return;
+            }
+
+            // TODO
+            ControlCamera.Update( KeyboardState, MouseState, ( float ) args.Time );
+
             // TODO remove after, used only to make easier program handling
             if ( KeyboardState.IsKeyDown( Keys.Escape ) )
             {
@@ -85,9 +99,14 @@ namespace BlockGame.Glue
         {
             _renderer.ClearScreen();
 
+            _renderer.UpdateView( _camera );
+
+            System.Console.WriteLine( _camera.RotationX );
+            System.Console.WriteLine( _camera.RotationY );
             // TODO remove test code
+
             model.Draw();
-            System.Console.WriteLine( 1.0f / args.Time );
+            System.Console.WriteLine( "\n" + (1.0f / args.Time).ToString() );
 
             SwapBuffers();
 
@@ -101,6 +120,9 @@ namespace BlockGame.Glue
         protected override void OnResize( ResizeEventArgs args )
         {
             _renderer.OnResize( Size.X, Size.Y );
+
+            // TODO
+            _camera.AspectRatio = ( float ) Size.X / Size.Y ;
 
             base.OnResize( args );
         }
