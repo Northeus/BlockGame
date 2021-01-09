@@ -29,6 +29,8 @@ namespace BlockGame.Graphics
         private Renderer()
         {
             GL.ClearColor( 0.1f, 0.1f, 0.1f, 1.0f );
+
+            GL.Enable( EnableCap.DepthTest );
         }
     }
 

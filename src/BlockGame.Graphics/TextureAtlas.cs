@@ -16,7 +16,10 @@ namespace BlockGame.Graphics
         /// </example>
         public readonly int Rows;
 
-        private Texture _texture;
+        /// <summary>
+        /// Handle for texture in case you want to use it separatly.
+        /// </summary>
+        public readonly Texture Handle;
 
         /// <summary>
         /// Normalized size of one texture side.
@@ -41,7 +44,7 @@ namespace BlockGame.Graphics
         /// </example>
         public TextureAtlas( string path, int rows )
         {
-            _texture = new Texture( path );
+            Handle = new Texture( path );
 
             Rows = rows;
         }

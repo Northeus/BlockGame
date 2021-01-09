@@ -15,7 +15,7 @@ namespace BlockGame.Graphics
             "BlockGame.Graphics/Shaders/ModelShader.frag"
         );
 
-        private Texture _texture;
+        private readonly Texture _texture;
 
         private int _vertexArrayObject;
 
@@ -154,7 +154,7 @@ namespace BlockGame.Graphics
         /// and use texture from <c> _texture </c>.
         /// Method will also set VAO to null.
         /// </summary>
-        public virtual void Draw()
+        public void Draw()
         {
             // TODO might be loaded once trough some function before draw batch.
             Model._shader.Use();

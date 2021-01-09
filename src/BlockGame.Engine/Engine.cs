@@ -32,6 +32,8 @@ namespace BlockGame.Glue
             base( WindowSettings.GameWindow, WindowSettings.NativeWindow )
         {
             _renderer = Renderer.Instance;
+
+            VSync = VSyncMode.Off;
         }
 
         /// <summary>
@@ -40,22 +42,13 @@ namespace BlockGame.Glue
         /// </summary>
 
         // TODO remove testing code
-        private Model model;
+        private ChunkModel model;
 
         protected override void OnLoad()
         {
-            model = new Model( new Vertex[0] {}, new uint[0] {},
-                               new Texture( "../Resources/Box.png" ) );
-            model.Vertices = new Vertex[4] {
-                new Vertex( -0.5f,  0.5f, 0.5f, 0.0f, 1.0f ),
-                new Vertex( -0.5f, -0.5f, 0.5f, 0.0f, 0.0f ),
-                new Vertex(  0.5f, -0.5f, 0.5f, 1.0f, 0.0f ),
-                new Vertex(  0.5f,  0.5f, 0.5f, 1.0f, 1.0f ),
-            };
-            model.Indices = new uint[6] {
-                1, 0, 3,
-                1, 2, 3
-            };
+            // TODO remove test code
+            model = new ChunkModel();
+            model.Update();
 
             base.OnLoad();
         }
@@ -92,7 +85,9 @@ namespace BlockGame.Glue
         {
             _renderer.ClearScreen();
 
-            _renderer.Draw( model );
+            // TODO remove test code
+            model.Draw();
+            System.Console.WriteLine( 1.0f / args.Time );
 
             SwapBuffers();
 
