@@ -50,6 +50,14 @@ namespace BlockGame.Graphics
         }
 
         /// <summary>
+        /// Free OpenGL resources of shader.
+        /// </summary>
+        ~Shader()
+        {
+            GL.DeleteProgram( _handle );
+        }
+
+        /// <summary>
         /// Bind current shader to be used.
         /// </summary>
         public void Use()
@@ -58,11 +66,19 @@ namespace BlockGame.Graphics
         }
 
         /// <summary>
-        /// Free resources attached to shader program.
+        /// Load vector of two floats into uniform. Method will
+        /// also bind shader, which call this method.
+        /// <exception>
+        /// There must be item in dictionary under given name.
+        /// </exception>
         /// </summary>
-        public void Free()
+        /// <param cref="name"> Name of uniform storing vector. </param>
+        /// <param cref="vector"> Vector storing two floats. </param>
+        public void LoadVector2( string name, Vector2 vector )
         {
-            GL.DeleteProgram( _handle );
+            GL.UseProgram( _handle );
+
+            GL.Uniform2( _uniformLocations[ name ], vector );
         }
 
         private static int CreateShader( string path, ShaderType shaderType )
@@ -134,7 +150,6 @@ namespace BlockGame.Graphics
             GL.DeleteShader( shader );
         }
 
-        // Cache uniform locations from shader sources.
         private static Dictionary< string, int > GetUniformLocations( int handle )
         {
             var locations = new Dictionary< string, int >();

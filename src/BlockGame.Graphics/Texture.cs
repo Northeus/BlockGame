@@ -16,6 +16,9 @@ namespace BlockGame.Graphics
         /// <summary>
         /// Create OpenGL texture from given image.
         /// </summary>
+        /// <exception>
+        /// Constructor will throw error, if path is incorrect.
+        /// </exception>
         /// <param creg="path">
         /// Specified location of .png file with texture image.
         /// </param>

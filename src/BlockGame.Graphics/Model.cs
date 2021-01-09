@@ -11,8 +11,8 @@ namespace BlockGame.Graphics
     public class Model
     {
         private static readonly Shader _shader = new Shader(
-            "BlockGame.Graphics/Shaders/Shader.vert",
-            "BlockGame.Graphics/Shaders/Shader.frag"
+            "BlockGame.Graphics/Shaders/ModelShader.vert",
+            "BlockGame.Graphics/Shaders/ModelShader.frag"
         );
 
         private Texture _texture;
@@ -149,20 +149,12 @@ namespace BlockGame.Graphics
         }
 
         /// <summary>
-        /// Clean up enviroment after end of execution of the program.
-        /// </summary>
-        public static void CleanUp()
-        {
-            _shader.Free();
-        }
-
-        /// <summary>
         /// Draw object stored in <c> _vertices </c>
         /// via indexes stored in <c> _indices </c>
         /// and use texture from <c> _texture </c>.
         /// Method will also set VAO to null.
         /// </summary>
-        public void Draw()
+        public virtual void Draw()
         {
             // TODO might be loaded once trough some function before draw batch.
             Model._shader.Use();

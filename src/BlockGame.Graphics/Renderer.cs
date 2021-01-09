@@ -42,11 +42,6 @@ namespace BlockGame.Graphics
             GL.Clear( ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit );
         }
 
-        public void CleanUp()
-        {
-            Model.CleanUp();
-        }
-
         public void OnResize( int width, int height )
         {
             GL.Viewport( 0, 0, width, height );

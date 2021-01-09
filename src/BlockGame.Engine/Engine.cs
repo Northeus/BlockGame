@@ -66,8 +66,6 @@ namespace BlockGame.Glue
         /// </summary>
         protected override void OnUnload()
         {
-            _renderer.CleanUp();
-
             base.OnUnload();
         }
 

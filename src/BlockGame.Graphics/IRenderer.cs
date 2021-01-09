@@ -11,12 +11,6 @@ namespace BlockGame.Graphics
         void ClearScreen();
 
         /// <summary>
-        /// Everythin needed to be cleaned up after using should
-        /// be placed there.
-        /// </summary>
-        void CleanUp();
-
-        /// <summary>
         /// Every time window is resized, this method is called with new
         /// window parameters, so renderer can adjust own settings.
         /// </summary>
