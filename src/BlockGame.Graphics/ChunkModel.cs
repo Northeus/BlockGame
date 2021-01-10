@@ -1,3 +1,5 @@
+using BlockGame.Game;
+
 using System.Collections.Generic;
 
 namespace BlockGame.Graphics
@@ -8,41 +10,64 @@ namespace BlockGame.Graphics
     /// </summary>
     public class ChunkModel : Model
     {
+        private static readonly float BlockWidth = 1.0f;
+
+        private static readonly float ChunkWidth = BlockWidth * Chunk.ChunkSize;
+
         private static TextureAtlas _textureAtlas = new TextureAtlas(
             "../Resources/Atlas.png",
-            2
+            8
         );
 
-        private List< Vertex > _loadedVertices = null;
+        private List< Vertex > _loadedVertices = new List< Vertex >();
 
-        private List< uint > _loadedIndices = null;
+        private List< uint > _loadedIndices = new List< uint >();
 
         /// <summary>
         /// Construct empty model for chunk which can be loaded with
         /// data using methods and later on drawn.
         /// </summary>
-        public ChunkModel()
+        public ChunkModel( Chunk chunk )
             : base( new Vertex[ 0 ] {}, new uint[ 0 ] {}, ChunkModel._textureAtlas.Handle )
         {
+            // TODO Optimalization class
+            float startX = chunk.Pos.X * ChunkWidth;
+            float startY = chunk.Pos.Y * ChunkWidth;
+            float startZ = chunk.Pos.Z * ChunkWidth;
+            for ( int x = 0; x < Chunk.ChunkSize; x++ )
+            {
+                for ( int y = 0; y < Chunk.ChunkSize; y++ )
+                {
+                    for ( int z = 0; z < Chunk.ChunkSize; z++ )
+                    {
+                        if ( chunk.Blocks[ x, y, z ] != Chunk.Block.Air )
+                        {
+                            AddCube(
+                                new Point(
+                                    startX + x * BlockWidth,
+                                    startY + y * BlockWidth,
+                                    startZ + z * BlockWidth
+                                ),
+                                ( int ) chunk.Blocks[ x, y, z ]
+                            );
+                        }
+                    }
+                }
+            }
 
+            Update();
         }
 
         // TODO implement
         public void Update()
         {
-            _loadedVertices = new List< Vertex >();
-            _loadedIndices = new List< uint >();
-
-            AddCube( new Point( -0.5f, -0.5f, 0.5f ), new Point( 0.5f, 0.5f, -0.5f ), 1 );
-
             /// Change buffers
             Vertices = _loadedVertices.ToArray();
             Indices = _loadedIndices.ToArray();
         }
 
         // A is left bottom front point of the cube
-        // B is right up back point of the cube
-        private void AddCube( Point A, Point B, int textureIndex )
+        private void AddCube( Point A, int textureIndex )
         {
             int row = textureIndex / _textureAtlas.Rows;
             int col = textureIndex % _textureAtlas.Rows;
@@ -54,6 +79,9 @@ namespace BlockGame.Graphics
                 col * _textureAtlas.TextureSize, // left
                 ( col + 1 ) * _textureAtlas.TextureSize  // right
             };
+
+            // right up back point of cube
+            Point B = new Point( A.X + BlockWidth, A.Y + BlockWidth, A.Z - BlockWidth );
 
             // front
             _loadedVertices.Add( new Vertex( A.X, B.Y, A.Z, tc[ 2 ], tc[ 0 ] ) ); // LUF

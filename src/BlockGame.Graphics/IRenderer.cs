@@ -1,3 +1,5 @@
+using BlockGame.Game;
+
 namespace BlockGame.Graphics
 {
     /// <summary>
@@ -23,7 +25,19 @@ namespace BlockGame.Graphics
         /// <param cref="height"> new height of the window. </param>
         void OnResize( int width, int height );
 
-        //TODO remove
-        void Draw( Model model );
+        /// <summary>
+        /// If needed, renderer may use this method which will be called
+        /// before rendering to cache data about world.
+        /// </summary>
+        /// <param cref="world"> World containing chunks to be drawn. </param>
+        /// <param cref="camera"> Current players view. </param>
+        void LoadWorld( World world, Camera camera );
+
+        /// <summary>
+        /// Draw world using player view for optimalization.
+        /// </summary>
+        /// <param cref="world"> World containing chunks to be drawn. </param>
+        /// <param cref="camera"> Current players view. </param>
+        void Draw( World world, Camera camera );
     }
 }

@@ -15,7 +15,7 @@ namespace BlockGame.Input
         /// <summary>
         /// Mouse sensitivity.
         /// </summary>
-        public static float Sensitivity = 0.5f;
+        public static float Sensitivity = 0.1f;
 
         /// <summary>
         /// Player speed.

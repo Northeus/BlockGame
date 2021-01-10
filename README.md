@@ -19,6 +19,7 @@
     - Destructors
     - Delegates
     - Events
+    - Enums
     - Interface implementation ( or in other part )
     - Properties
     - Indexers

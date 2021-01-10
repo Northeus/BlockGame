@@ -1,3 +1,4 @@
+using BlockGame.Game;
 using BlockGame.Graphics;
 using BlockGame.Input;
 
@@ -45,14 +46,14 @@ namespace BlockGame.Glue
         /// </summary>
 
         // TODO remove testing code
-        private ChunkModel model;
+        private World _world;
         private Camera _camera;
 
         protected override void OnLoad()
         {
             // TODO remove test code
-            model = new ChunkModel();
-            model.Update();
+            _world = new World();
+            _renderer.LoadWorld( _world, _camera );
             _camera = new Camera( ( float ) Size.X / Size.Y );
             ControlCamera.BindCamera( _camera );
 
@@ -101,7 +102,7 @@ namespace BlockGame.Glue
 
             _renderer.UpdateView( _camera );
             // TODO remove test code
-            model.Draw();
+            _renderer.Draw( _world, _camera );
             System.Console.WriteLine( "\n" + (1.0f / args.Time).ToString() );
 
             SwapBuffers();

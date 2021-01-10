@@ -1,3 +1,5 @@
+using BlockGame.Game;
+
 using OpenTK.Graphics.OpenGL4;
 
 namespace BlockGame.Graphics
@@ -56,10 +58,16 @@ namespace BlockGame.Graphics
             GL.Viewport( 0, 0, width, height );
         }
 
-        // TODO remove
-        public void Draw( Model model )
+        public void LoadWorld( World world, Camera camera )
         {
-            model.Draw();
+            ChunkRenderer.AddChunk( world.WorldMap[ 0, 0, 0 ] );
+        }
+
+        public void Draw( World world, Camera camera )
+        {
+            // TODO Check for changes
+
+            ChunkRenderer.Draw();
         }
     }
 }

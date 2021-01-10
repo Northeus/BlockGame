@@ -20,7 +20,7 @@ namespace BlockGame.Glue
             new NativeWindowSettings()
             {
                 Title = "BlockGame",
-                Size = new Vector2i( 800, 600 ),
+                Size = new Vector2i( 1280, 720 ),
             };
     }
 }
