@@ -20,7 +20,7 @@ namespace BlockGame.Input
         /// <summary>
         /// Player speed.
         /// </summary>
-        public static float Speed = 2.0f;
+        public static float Speed = 5.0f;
 
         private static Camera _camera;
 

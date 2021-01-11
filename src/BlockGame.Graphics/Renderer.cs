@@ -9,7 +9,11 @@ namespace BlockGame.Graphics
     /// </summary>
     public partial class Renderer : IRenderer
     {
-        private static Renderer _instance = null;
+        private static Renderer _instance;
+
+        private Camera _camera;
+
+        private World _world;
 
         /// <summary>
         /// Property which will give you instance of Renderer
@@ -34,6 +38,16 @@ namespace BlockGame.Graphics
 
             GL.Enable( EnableCap.DepthTest );
         }
+
+        private void ClearScreen()
+        {
+            GL.Clear( ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit );
+        }
+
+        private void UpdateView()
+        {
+            Model.AdjustMatrices( _camera.ViewMatrix, _camera.ProjectionMatrix );
+        }
     }
 
     /// <summary>
@@ -41,18 +55,6 @@ namespace BlockGame.Graphics
     /// </summary>
      public partial class Renderer : IRenderer
     {
-        public void ClearScreen()
-        {
-            GL.Clear( ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit );
-        }
-
-        public void UpdateView( Camera camera )
-        {
-            // TODO bubble functionality up
-            Model._shader.LoadMatrix4( "view", camera.ViewMatrix );
-            Model._shader.LoadMatrix4( "projection", camera.ProjectionMatrix );
-        }
-
         public void OnResize( int width, int height )
         {
             GL.Viewport( 0, 0, width, height );
@@ -60,12 +62,19 @@ namespace BlockGame.Graphics
 
         public void LoadWorld( World world, Camera camera )
         {
+            _camera = camera;
+
+            _world = world;
+
+            // TODO
             ChunkRenderer.AddChunk( world.WorldMap[ 0, 0, 0 ] );
         }
 
-        public void Draw( World world, Camera camera )
+        public void Draw()
         {
-            // TODO Check for changes
+            ClearScreen();
+
+            UpdateView();
 
             ChunkRenderer.Draw();
         }

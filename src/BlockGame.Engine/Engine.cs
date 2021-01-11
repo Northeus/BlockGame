@@ -52,9 +52,9 @@ namespace BlockGame.Glue
         protected override void OnLoad()
         {
             // TODO remove test code
+            _camera = new Camera( Size.X, Size.Y );
             _world = new World();
             _renderer.LoadWorld( _world, _camera );
-            _camera = new Camera( ( float ) Size.X / Size.Y );
             ControlCamera.BindCamera( _camera );
 
             base.OnLoad();
@@ -80,10 +80,8 @@ namespace BlockGame.Glue
                 return;
             }
 
-            // TODO
             ControlCamera.Update( KeyboardState, MouseState, ( float ) args.Time );
 
-            // TODO remove after, used only to make easier program handling
             if ( KeyboardState.IsKeyDown( Keys.Escape ) )
             {
                 Close();
@@ -98,11 +96,9 @@ namespace BlockGame.Glue
         /// <param cref="args"> Event arguments for frame. </param>
         protected override void OnRenderFrame( FrameEventArgs args )
         {
-            _renderer.ClearScreen();
+            _renderer.Draw();
 
-            _renderer.UpdateView( _camera );
-            // TODO remove test code
-            _renderer.Draw( _world, _camera );
+            // TODO remove FPS counter
             System.Console.WriteLine( "\n" + (1.0f / args.Time).ToString() );
 
             SwapBuffers();
@@ -118,8 +114,7 @@ namespace BlockGame.Glue
         {
             _renderer.OnResize( Size.X, Size.Y );
 
-            // TODO
-            _camera.AspectRatio = ( float ) Size.X / Size.Y ;
+            _camera.AdjustAspectRatio( Size.X, Size.Y );
 
             base.OnResize( args );
         }

@@ -1,4 +1,5 @@
 using OpenTK.Graphics.OpenGL4;
+using OpenTK.Mathematics;
 
 using System.Linq;
 
@@ -146,6 +147,17 @@ namespace BlockGame.Graphics
             GL.DeleteVertexArray( _vertexArrayObject );
             GL.DeleteBuffer( _vertexBufferObject );
             GL.DeleteBuffer( _elementBufferObject );
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param cref="view"> Matrix of view transformation. </param>
+        /// <param cref="projection"> Matrix of projection transform. </param>
+        public static void AdjustMatrices( Matrix4 view, Matrix4 projection )
+        {
+            _shader.LoadMatrix4( "view", view );
+            _shader.LoadMatrix4( "projection", projection );
         }
 
         /// <summary>

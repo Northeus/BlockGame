@@ -26,6 +26,8 @@ namespace BlockGame.Graphics
 
         private float _fov = MathHelper.PiOver2;
 
+        public float _aspectRatio;
+
         /// <summary>
         /// Camera's front vector.
         /// </summary>
@@ -40,13 +42,6 @@ namespace BlockGame.Graphics
         /// Camera's up vector.
         /// </summary>
         public Vector3 Up => _up;
-
-
-        /// <summary>
-        /// Aspect ratio should be adjusted each time we resize window
-        /// so projection matrix is up to date.
-        /// <summary>
-        public float AspectRatio { private get; set; }
 
         /// <summary>
         /// Create rotation around axis X using degrees.
@@ -95,16 +90,28 @@ namespace BlockGame.Graphics
         /// </summary>
         public Matrix4 ProjectionMatrix
         {
-            get => Matrix4.CreatePerspectiveFieldOfView( _fov, AspectRatio, 0.01f, 100.0f );
+            get => Matrix4.CreatePerspectiveFieldOfView( _fov, _aspectRatio, 0.01f, 100.0f );
         }
 
         /// <summary>
         /// Constructor for <c> Camera </c>.
         /// </summary>
-        /// <param cref="aspectRatio"> Should be width / height of window. </param>
-        public Camera( float aspectRatio )
+        /// <param cref="width"> Current width of window. </param>
+        /// <param cref="height"> Current height of window. </param>
+        public Camera( int width, int height )
         {
-            AspectRatio = aspectRatio;
+            AdjustAspectRatio( width, height );
+        }
+
+        /// <summary>
+        /// Use this method to adjust current aspect ratio of camera, so
+        /// projection matrix will be up to date for rendering.
+        /// </summary>
+        /// <param cref="width"> Current width of window. </param>
+        /// <param cref="height"> Current height of window. </param>
+        public void AdjustAspectRatio( int width, int height )
+        {
+            _aspectRatio = ( float ) width / height;
         }
 
         private void Update()

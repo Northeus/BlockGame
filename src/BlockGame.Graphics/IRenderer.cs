@@ -8,16 +8,6 @@ namespace BlockGame.Graphics
     public interface IRenderer
     {
         /// <summary>
-        /// Clear screene with black dark grey color.
-        /// </summary>
-        void ClearScreen();
-
-        /// <summary>
-        /// Adjust view using <c> Camera </c>.
-        /// </summary>
-        void UpdateView( Camera camera );
-
-        /// <summary>
         /// Every time window is resized, this method is called with new
         /// window parameters, so renderer can adjust own settings.
         /// </summary>
@@ -26,18 +16,16 @@ namespace BlockGame.Graphics
         void OnResize( int width, int height );
 
         /// <summary>
-        /// If needed, renderer may use this method which will be called
-        /// before rendering to cache data about world.
+        /// Use this method to load data for rendering.
         /// </summary>
         /// <param cref="world"> World containing chunks to be drawn. </param>
         /// <param cref="camera"> Current players view. </param>
         void LoadWorld( World world, Camera camera );
 
         /// <summary>
-        /// Draw world using player view for optimalization.
+        /// Draw world, information for drawing must be loaded beforehand using
+        /// method <see cref="LoadWorld">.
         /// </summary>
-        /// <param cref="world"> World containing chunks to be drawn. </param>
-        /// <param cref="camera"> Current players view. </param>
-        void Draw( World world, Camera camera );
+        void Draw();
     }
 }
