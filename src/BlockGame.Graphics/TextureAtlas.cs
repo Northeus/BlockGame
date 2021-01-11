@@ -48,5 +48,26 @@ namespace BlockGame.Graphics
 
             Rows = rows;
         }
+
+        /// <summary>
+        /// Returns 4 values representing texture coordinates from atlas
+        /// in given order: top, bottom, left, right.
+        /// </summary>
+        /// <param cref="textureIndex"> Index into atlas. </param>
+        /// <returns>
+        /// Array of 4 floats representing texture position within atlas.
+        /// <returns>
+        public float[] TextureCoords( int textureIndex )
+        {
+            int row = textureIndex / Rows;
+            int col = textureIndex % Rows;
+
+            return new float[ 4 ] {
+                row * TextureSize,          // top
+                ( row + 1 ) * TextureSize,  // bottom
+                col * TextureSize,          // left
+                ( col + 1 ) * TextureSize   // right
+            };
+        }
     }
 }
