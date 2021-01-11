@@ -72,12 +72,12 @@ namespace BlockGame.Input
 
             if ( keyboard.IsKeyDown( Keys.Space ) )
             {
-                _camera.Position += _camera.Up * Speed * time;
+                _camera.Position += Vector3.UnitY * Speed * time;
             }
 
             if ( keyboard.IsKeyDown( Keys.LeftShift ) )
             {
-                _camera.Position -= _camera.Up * Speed * time;
+                _camera.Position -= Vector3.UnitY * Speed * time;
             }
 
             if ( ! _isFirstMouseMove )
