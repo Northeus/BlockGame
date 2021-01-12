@@ -1,6 +1,10 @@
 namespace BlockGame.Game
 {
-    // TODO
+    // TODO might use 2d array of higger chunks, where each can be splitted for rendering.
+    /// <summary>
+    /// Class can be used to get data about chunk for rendering <see cref="Blocks"/>,
+    /// or to get some metadata for optimalization ( i.e. if chunk was changed ).
+    /// </summary>
     public class Chunk
     {
         // TODO
@@ -12,17 +16,22 @@ namespace BlockGame.Game
         // TODO
         public readonly Position Pos;
 
-        // TODO
+        /// <summary>
+        /// Generate chunk at given position.
+        /// </summary>
+        /// <param cref="posX"> X's coordinate of chunk. </param>
+        /// <param cref="posY"> Y's coordinate of chunk. </param>
+        /// <param cref="posZ"> Z's coordinate of chunk. </param>
         public Chunk( int posX, int posY, int posZ )
         {
+            ClearChunk();
+
             for ( int x = 0; x < ChunkSize; x++ )
             {
-                for ( int y = 0; y < ChunkSize; y++ )
+                for ( int z = 0; z < ChunkSize; z++ )
                 {
-                    for ( int z = 0; z < ChunkSize; z++ )
-                    {
-                        Blocks[ x, y, z ] = ( x == 0 || y == 0 || z == 15 ) ? Block.Rock : Block.Air;
-                    }
+                    Blocks[ x, 0, z ] = ( x == 0 || z == 0 || x == 15 || z == 15)
+                        ? Block.Rock : Block.Grass;
                 }
             }
 
@@ -42,13 +51,37 @@ namespace BlockGame.Game
             Air = 255
         }
 
-        // TODO
+        private void ClearChunk()
+        {
+            for ( int x = 0; x < ChunkSize; x++ )
+            {
+                for ( int y = 0; y < ChunkSize; y++ )
+                {
+                    for ( int z = 0; z < ChunkSize; z++ )
+                    {
+                        Blocks[ x, y, z ] = Block.Air;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Representation of chunk's positions.
+        /// </summary>
         public struct Position
         {
-            // TODO
-            public int X, Y, Z;
+            /// <summary>
+            /// Separated coordinates of the chunk.
+            /// </summary>
+            public readonly int X, Y, Z;
 
-            // TODO
+            /// <summary>
+            /// Constructor which set coordinates via given values.
+            /// Y's coordinate describe height.
+            /// </summary>
+            /// <param cref="x"> X's coordinate of chunk. </param>
+            /// <param cref="y"> Y's coordinate of chunk. </param>
+            /// <param cref="z"> Z's coordinate of chunk. </param>
             public Position( int x, int y, int z )
             {
                 X = x;

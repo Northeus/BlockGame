@@ -36,8 +36,7 @@ namespace BlockGame.Input
         {
             _mousePos = new Vector2( 0.0f, 0.0f );
 
-            // TODO?
-            //_firstMouseMove = true;
+            _isFirstMouseMove = true;
 
             _camera = camera;
         }

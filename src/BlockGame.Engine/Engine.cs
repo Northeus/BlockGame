@@ -35,7 +35,7 @@ namespace BlockGame.Glue
         {
             _renderer = Renderer.Instance;
 
-            VSync = VSyncMode.Off;
+            VSync = VSyncMode.On;
 
             CursorGrabbed = true;
         }

@@ -60,14 +60,15 @@ namespace BlockGame.Graphics
             GL.Viewport( 0, 0, width, height );
         }
 
+        // TODO camera -> player ?
+        // TODO camera wrapper ?
         public void LoadWorld( World world, Camera camera )
         {
             _camera = camera;
 
             _world = world;
 
-            // TODO
-            ChunkRenderer.AddChunk( world.WorldMap[ 0, 0, 0 ] );
+            Optimalization.LoadChunks( world, camera );
         }
 
         public void Draw()
