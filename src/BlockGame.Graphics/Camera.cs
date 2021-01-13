@@ -29,9 +29,19 @@ namespace BlockGame.Graphics
         public float _aspectRatio;
 
         /// <summary>
+        /// Get only horizontal zoordinates ( X and Z ) of front.
+        /// </summary>
+        public Vector3 FrontHorizontal => new Vector3( _front.X, 0.0f, _front.Z );
+
+        /// <summary>
         /// Camera's front vector.
         /// </summary>
         public Vector3 Front => _front;
+
+        /// <summary>
+        /// Get only horizontal zoordinates ( X and Z ) of right.
+        /// </summary>
+        public Vector3 RightHorizontal => new Vector3( _right.X, 0.0f, _right.Z );
 
         /// <summary>
         /// Camera's right vector.

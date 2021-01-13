@@ -51,22 +51,22 @@ namespace BlockGame.Input
         {
             if ( keyboard.IsKeyDown( Keys.W ) )
             {
-                _camera.Position += _camera.Front * Speed * time;
+                _camera.Position += _camera.FrontHorizontal * Speed * time;
             }
 
             if ( keyboard.IsKeyDown( Keys.S ) )
             {
-                _camera.Position -= _camera.Front * Speed * time;
+                _camera.Position -= _camera.FrontHorizontal * Speed * time;
             }
 
             if ( keyboard.IsKeyDown( Keys.A ) )
             {
-                _camera.Position -= _camera.Right * Speed * time;
+                _camera.Position -= _camera.RightHorizontal * Speed * time;
             }
 
             if ( keyboard.IsKeyDown( Keys.D ) )
             {
-                _camera.Position += _camera.Right * Speed * time;
+                _camera.Position += _camera.RightHorizontal * Speed * time;
             }
 
             if ( keyboard.IsKeyDown( Keys.Space ) )

@@ -7,13 +7,21 @@ namespace BlockGame.Game
     /// </summary>
     public class Chunk
     {
-        // TODO
+        /// <summary>
+        /// Size of every <see cref="Blocks"/> array. That means it represents
+        /// each chunk si cube with size of side equal to this constant.
+        /// </summary>
         public static readonly int ChunkSize = 16;
 
-        // TODO
+        /// <summary>
+        /// Array of blocsk in chunk, indices are x, y, z in given order.
+        /// Y's coordination represent height.
+        /// </summary>
         public Block[,,] Blocks = new Block[ ChunkSize, ChunkSize, ChunkSize ];
 
-        // TODO
+        /// <summary>
+        /// Public variable which will give you position of chunk in the world.
+        /// </summary>
         public readonly Position Pos;
 
         /// <summary>
