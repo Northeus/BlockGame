@@ -1,4 +1,5 @@
 using BlockGame.Game;
+using BlockGame.Graphics.Data;
 
 using System;
 
@@ -10,7 +11,7 @@ namespace BlockGame.Graphics
     /// </summary>
     public static class Optimalization
     {
-        private static readonly int _RenderDistance = 3;
+        private static readonly int _RenderDistance = 1;
 
         /// <summary>
         /// Method which loads only chunks in render distance.
@@ -25,13 +26,13 @@ namespace BlockGame.Graphics
                 ( int ) ( camera.Position.Z / ChunkModel.ChunkWidth )
             );
 
-            int startX = Math.Max( center.X - World.MiddleX, 0 );
+            int startX = Math.Max( center.X + World.MiddleX - _RenderDistance, 0 );
             int startY = Math.Max( center.Y, 0 );
-            int startZ = Math.Max( center.Z - World.MiddleZ, 0 );
+            int startZ = Math.Max( center.Z + World.MiddleZ - _RenderDistance, 0 );
 
-            int boundX = Math.Min( startX + _RenderDistance, World.WidthX );
-            int boundY = Math.Min( startY + _RenderDistance, World.Height );
-            int boundZ = Math.Min( startZ + _RenderDistance, World.WidthZ );
+            int boundX = Math.Min( startX + 2 * _RenderDistance + 1, World.WidthX );
+            int boundY = Math.Min( startY + 2 * _RenderDistance + 1, World.Height );
+            int boundZ = Math.Min( startZ + 2 * _RenderDistance + 1, World.WidthZ );
 
             for ( int x = startX; x < boundX; x++ )
             {
@@ -39,8 +40,7 @@ namespace BlockGame.Graphics
                 {
                     for ( int z = startZ; z < boundZ; z++ )
                     {
-                        ChunkRenderer.AddChunk( world.WorldMap[ x, y, z ] );
-                        // TODO side rendering method
+                        ChunkRenderer.AddChunk( world, x, y, z );
                     }
                 }
             }

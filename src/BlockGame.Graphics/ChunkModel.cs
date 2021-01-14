@@ -11,7 +11,10 @@ namespace BlockGame.Graphics
     /// </summary>
     public class ChunkModel : Model
     {
-        private static readonly float BlockWidth = 1.0f;
+        /// <summary>
+        /// Width of one block in OpenGL coords.
+        /// </summary>
+        public static readonly float BlockWidth = 1.0f;
 
         /// <summary>
         /// Represent width of chunk in OpenGL coords.
@@ -31,13 +34,60 @@ namespace BlockGame.Graphics
         /// Construct empty model for chunk which can be loaded with
         /// data using methods and later on drawn.
         /// </summary>
-        public ChunkModel( Chunk chunk )
+        /// <param cref="world"> World containing map of chunks. </param>
+        /// <param cref="x"> First index into map of chunks. </param>
+        /// <param cref="y"> Second index into map of chunks. </param>
+        /// <param cref="z"> Third index into map of chunks. </param>
+        public ChunkModel( World world, int x, int y, int z )
             : base( new Vertex[ 0 ] {}, new uint[ 0 ] {}, ChunkModel._textureAtlas.Handle )
         {
-            // TODO Optimalization class
-            float startX = chunk.Pos.X * ChunkWidth;
-            float startY = chunk.Pos.Y * ChunkWidth;
-            float startZ = chunk.Pos.Z * ChunkWidth;
+            LoadInnerBlocks( world.WorldMap[ x, y, z ] );
+            LoadBoarderBlocks();
+
+            BufferData();
+        }
+
+        /// <summary>
+        /// Update chunk model.
+        /// </summary>
+        /// <param cref="world"> World containing map of chunks. </param>
+        /// <param cref="x"> First index into map of chunks. </param>
+        /// <param cref="y"> Second index into map of chunks. </param>
+        /// <param cref="z"> Third index into map of chunks. </param>
+        public void Update( World world, int x, int y, int z )
+        {
+            LoadInnerBlocks( world.WorldMap[ x, y, z] );
+            LoadBoarderBlocks();
+
+            BufferData();
+        }
+
+        /// <summary>
+        /// Add cube into model defined by her front bottom left corner.
+        /// </summary>
+        /// <param cref="A"> Point of given corner. </param>
+        /// <param cref="textureIndex"> Index into texture atlas of cubes. </param>
+        public void AddCube( Point A, int textureIndex )
+        {
+            float[] textureCoords = _textureAtlas.TextureCoords( textureIndex );
+
+            Point B = new Point( A.X + BlockWidth, A.Y + BlockWidth, A.Z - BlockWidth );
+
+            _loadedVertices.AddRange( Shapes.CuboidVertices( A, B, textureCoords ) );
+            _loadedIndices.AddRange( Shapes.CuboidIndices( _loadedVertices.Count ) );
+        }
+
+        private void BufferData()
+        {
+            Vertices = _loadedVertices.ToArray();
+            Indices = _loadedIndices.ToArray();
+        }
+
+        private void LoadInnerBlocks( Chunk chunk )
+        {
+            float startX = chunk.Pos.X * ChunkModel.ChunkWidth;
+            float startY = chunk.Pos.Y * ChunkModel.ChunkWidth;
+            float startZ = chunk.Pos.Z * ChunkModel.ChunkWidth;
 
             for ( int x = 0; x < Chunk.ChunkSize; x++ )
             {
@@ -49,9 +99,9 @@ namespace BlockGame.Graphics
                         {
                             AddCube(
                                 new Point(
-                                    startX + x * BlockWidth,
-                                    startY + y * BlockWidth,
-                                    startZ + z * BlockWidth
+                                    startX + x * ChunkModel.BlockWidth,
+                                    startY + y * ChunkModel.BlockWidth,
+                                    startZ + z * ChunkModel.BlockWidth
                                 ),
                                 ( int ) chunk.Blocks[ x, y, z ]
                             );
@@ -59,26 +109,12 @@ namespace BlockGame.Graphics
                     }
                 }
             }
-
-            Update();
         }
 
-        // TODO implement
-        public void Update()
+        // TODO
+        private void LoadBoarderBlocks()
         {
-            /// Change buffers
-            Vertices = _loadedVertices.ToArray();
-            Indices = _loadedIndices.ToArray();
-        }
-
-        private void AddCube( Point A, int textureIndex )
-        {
-            float[] textureCoords = _textureAtlas.TextureCoords( textureIndex );
-
-            Point B = new Point( A.X + BlockWidth, A.Y + BlockWidth, A.Z - BlockWidth );
-
-            _loadedVertices.AddRange( Shapes.CuboidVertices( A, B, textureCoords ) );
-            _loadedIndices.AddRange( Shapes.CuboidIndices( _loadedVertices.Count ) );
+            // TODO
         }
     }
 }

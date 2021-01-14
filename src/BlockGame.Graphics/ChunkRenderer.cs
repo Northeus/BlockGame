@@ -24,10 +24,13 @@ namespace BlockGame.Graphics
         /// <summary>
         /// Add chunk model into renderer.
         /// </summary>
-        /// <param cref="chunk"> Chunk to be added. </param>
-        public static void AddChunk( Chunk chunk )
+        /// <param cref="world"> World containing map of chunks. </param>
+        /// <param cref="x"> First index into map of chunks. </param>
+        /// <param cref="y"> Second index into map of chunks. </param>
+        /// <param cref="z"> Third index into map of chunks. </param>
+        public static void AddChunk( World world, int x, int y, int z )
         {
-            _models[ chunk.Pos ] = new ChunkModel( chunk );
+            _models[ world.WorldMap[ x, y, z ].Pos ] = new ChunkModel( world, x, y, z );
         }
 
         /// <summary>
@@ -43,14 +46,21 @@ namespace BlockGame.Graphics
         }
 
         /// <summary>
-        /// Method will recreate chunk model, to ensure, that it
-        /// represents curent look of model ( And neighbour sides also ).
-        /// You should call this method, each time chunk is changed.
+        /// Check for changes in world and load new data into buffers.
         /// </summary>
-        /// <param cref="chunk"> Chunk to be updated. </param>
-        public static void UpdateChunk( Chunk chunk )
+        /// <param cref="world"> Specified world for update. </param>
+        public static void Update( World world )
         {
-            _models[ chunk.Pos ] = new ChunkModel( chunk );
+            foreach ( Chunk.Position pos in world.UpdatedChunks )
+            {
+                int x = pos.X + World.MiddleX;
+                int y = pos.Y;
+                int z = pos.Z + World.MiddleZ;
+
+                _models[ pos ].Update( world, x, y, z );
+            }
+
+            world.Updated();
         }
 
         /// <summary>

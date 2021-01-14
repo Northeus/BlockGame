@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace BlockGame.Game
 {
     /// <summary>
@@ -6,16 +8,33 @@ namespace BlockGame.Game
     /// </summary>
     public class World
     {
+        /// <summary>
+        /// Width of world ( <c> WorldMap </c> ) in X's coordinate.
+        /// </summary>
         public static readonly int WidthX = 3;
 
+        /// <summary>
+        /// Height of world ( <c> WorldMap </c> ) in Y's coordinate.
+        /// </summary>
         public static readonly int WidthZ = 3;
 
+        /// <summary>
+        /// Width of world ( <c> WorldMap </c> ) in Z's coordinate.
+        /// </summary>
         public static readonly int Height = 1;
 
         /// <summary>
         /// Store chunks of world.
         /// </summary>
         public readonly Chunk[,,] WorldMap = new Chunk[ WidthX, Height, WidthZ ];
+
+        private List< Chunk.Position > _updatedChunks = new List< Chunk.Position >();
+
+        /// <summary>
+        /// Store positions of changed chunks. To reset this buffer
+        /// use <see cref="Updated"/>.
+        /// </summary>
+        public List< Chunk.Position > UpdatedChunks => _updatedChunks;
 
         /// <summary>
         /// Get coords of X's coord center in world.
@@ -33,6 +52,11 @@ namespace BlockGame.Game
         public World()
         {
             GenerateMap();
+        }
+
+        public void Updated()
+        {
+            _updatedChunks.Clear();
         }
 
         private void GenerateMap()
