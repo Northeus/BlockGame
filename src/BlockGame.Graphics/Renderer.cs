@@ -68,7 +68,7 @@ namespace BlockGame.Graphics
 
             _world = world;
 
-            Optimalization.LoadChunks( world, camera );
+            ChunkRenderer.LoadChunks( world, camera );
         }
 
         public void Draw()

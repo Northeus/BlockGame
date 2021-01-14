@@ -6,17 +6,51 @@ namespace BlockGame.Game
     /// </summary>
     public class World
     {
-        // TODO
-        public readonly Chunk[,,] WorldMap = new Chunk[ 2, 1, 2 ]
-        {
-            { { new Chunk( 0, 0, 0 ), new Chunk( 0, 0, 1 ) } },
-            { { new Chunk( 1, 0, 0 ), new Chunk( 1, 0, 1 ) } }
-        };
+        public static readonly int WidthX = 3;
 
-        // TODO
+        public static readonly int WidthZ = 3;
+
+        public static readonly int Height = 1;
+
+        /// <summary>
+        /// Store chunks of world.
+        /// </summary>
+        public readonly Chunk[,,] WorldMap = new Chunk[ WidthX, Height, WidthZ ];
+
+        /// <summary>
+        /// Get coords of X's coord center in world.
+        /// </summary>
+        public static int MiddleX => WidthX / 2;
+
+        /// <summary>
+        /// Get coords of Z's coord center in world.
+        /// </summary>
+        public static int MiddleZ => WidthZ / 2;
+
+        /// <summary>
+        /// Generate new world map on construction.
+        /// </summary>
         public World()
         {
+            GenerateMap();
+        }
 
+        private void GenerateMap()
+        {
+            for ( int x = 0; x < WidthX; x++ )
+            {
+                for ( int y = 0; y < Height; y++ )
+                {
+                    for ( int z = 0; z < WidthZ; z++ )
+                    {
+                        WorldMap[ x, y, z ] = new Chunk(
+                            x - MiddleX,
+                            y,
+                            z - MiddleZ
+                        );
+                    }
+                }
+            }
         }
     }
 }

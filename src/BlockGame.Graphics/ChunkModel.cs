@@ -13,7 +13,10 @@ namespace BlockGame.Graphics
     {
         private static readonly float BlockWidth = 1.0f;
 
-        private static readonly float ChunkWidth = BlockWidth * Chunk.ChunkSize;
+        /// <summary>
+        /// Represent width of chunk in OpenGL coords.
+        /// </summary>
+        public static readonly float ChunkWidth = BlockWidth * Chunk.ChunkSize;
 
         private static TextureAtlas _textureAtlas = new TextureAtlas(
             "../Resources/Atlas.png",
@@ -35,6 +38,7 @@ namespace BlockGame.Graphics
             float startX = chunk.Pos.X * ChunkWidth;
             float startY = chunk.Pos.Y * ChunkWidth;
             float startZ = chunk.Pos.Z * ChunkWidth;
+
             for ( int x = 0; x < Chunk.ChunkSize; x++ )
             {
                 for ( int y = 0; y < Chunk.ChunkSize; y++ )

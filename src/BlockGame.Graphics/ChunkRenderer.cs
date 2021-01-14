@@ -9,27 +9,59 @@ namespace BlockGame.Graphics
     /// </summary>
     public static class ChunkRenderer
     {
-        private static Dictionary< Chunk.Position, ChunkModel > Models =
+        private static Dictionary< Chunk.Position, ChunkModel > _models =
             new Dictionary< Chunk.Position, ChunkModel >();
 
-        // TODO
+        /// <summary>
+        /// Will load chunk from world for rendering.
+        /// </summary>
+        /// <param cref="chunk"> World to be added for rendering. </param>
+        public static void LoadChunks( World world, Camera camera )
+        {
+            Optimalization.LoadChunks( world, camera );
+        }
+
+        /// <summary>
+        /// Add chunk model into renderer.
+        /// </summary>
+        /// <param cref="chunk"> Chunk to be added. </param>
         public static void AddChunk( Chunk chunk )
         {
-            Models[ chunk.Pos ] = new ChunkModel( chunk );
+            _models[ chunk.Pos ] = new ChunkModel( chunk );
         }
 
-        // TODO
-        public static void UpdateChunk( Chunk.Position pos )
+        /// <summary>
+        /// Stop rendering chunk given by his position.
+        /// </summary>
+        /// <param cref="pos"> Position of given chunk.  </param>
+        /// <returns>
+        /// True, if chunk was found and removed, false otherwise.
+        /// </returns>
+        public static bool RemoveChunk( Chunk.Position pos )
         {
-            // TODO
+            return _models.Remove( pos, out _ );
         }
 
-        // TODO
+        /// <summary>
+        /// Method will recreate chunk model, to ensure, that it
+        /// represents curent look of model ( And neighbour sides also ).
+        /// You should call this method, each time chunk is changed.
+        /// </summary>
+        /// <param cref="chunk"> Chunk to be updated. </param>
+        public static void UpdateChunk( Chunk chunk )
+        {
+            _models[ chunk.Pos ] = new ChunkModel( chunk );
+        }
+
+        /// <summary>
+        /// Draw every model, which is currently loaded using
+        /// <see cref="AddChunk"/>.
+        /// </summary>
         public static void Draw()
         {
-            foreach ( var item in Models )
+            foreach ( ChunkModel model in _models.Values )
             {
-                item.Value.Draw();
+                model.Draw();
             }
         }
     }

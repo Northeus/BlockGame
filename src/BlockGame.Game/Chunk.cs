@@ -1,6 +1,5 @@
 namespace BlockGame.Game
 {
-    // TODO might use 2d array of higger chunks, where each can be splitted for rendering.
     /// <summary>
     /// Class can be used to get data about chunk for rendering <see cref="Blocks"/>,
     /// or to get some metadata for optimalization ( i.e. if chunk was changed ).
