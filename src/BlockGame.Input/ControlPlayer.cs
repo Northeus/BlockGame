@@ -1,3 +1,4 @@
+using BlockGame.Game;
 using BlockGame.Graphics;
 
 using OpenTK.Mathematics;
@@ -6,11 +7,11 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 namespace BlockGame.Input
 {
     /// <summary>
-    /// Class helping to handle <c> Camera </c> movement.
+    /// Class helping to handle <c> Plyer </c> movement.
     /// Do not foget to use <see cref="BindCamera"/> before
     /// using <see cref="Update"/>.
     /// </summary>
-    public static class ControlCamera
+    public static class ControlPlayer
     {
         /// <summary>
         /// Mouse sensitivity.
@@ -31,16 +32,17 @@ namespace BlockGame.Input
         /// <summary>
         /// Bind camera, which should be controled.
         /// </summary>
-        /// <param cref="camera"> Camera to be binded. </param>
-        public static void BindCamera( Camera camera )
+        /// <param cref="player"> Player object containing camera. </param>
+        public static void BindPlayer( Player player )
         {
             _mousePos = new Vector2( 0.0f, 0.0f );
 
             _isFirstMouseMove = true;
 
-            _camera = camera;
+            _camera = player.Camera;
         }
 
+        // TODO put some functionality into the player class.
         /// <summary>
         /// Adjust camera via given input and delta time.
         /// </summary>

@@ -24,6 +24,8 @@ namespace BlockGame.Glue
     /// </example>
     public class Engine : GameWindow
     {
+        private Loader _loader;
+
         private IRenderer _renderer;
 
         /// <summary>
@@ -44,18 +46,13 @@ namespace BlockGame.Glue
         /// Is executed when <c> Run() </c> is called.
         /// Should be used for resource initialization.
         /// </summary>
-
-        // TODO remove testing code
-        private World _world;
-        private Camera _camera;
-
         protected override void OnLoad()
         {
-            // TODO remove test code
-            _camera = new Camera( Size.X, Size.Y );
-            _world = new World();
-            _renderer.LoadWorld( _world, _camera );
-            ControlCamera.BindCamera( _camera );
+            _loader = new Loader( Size.X, Size.Y );
+
+            ControlPlayer.BindPlayer( _loader.Player );
+
+            _renderer.LoadWorld( _loader.World, _loader.Player.Camera );
 
             base.OnLoad();
         }
@@ -80,7 +77,7 @@ namespace BlockGame.Glue
                 return;
             }
 
-            ControlCamera.Update( KeyboardState, MouseState, ( float ) args.Time );
+            ControlPlayer.Update( KeyboardState, MouseState, ( float ) args.Time );
 
             if ( KeyboardState.IsKeyDown( Keys.Escape ) )
             {
@@ -98,9 +95,6 @@ namespace BlockGame.Glue
         {
             _renderer.Draw();
 
-            // TODO remove FPS counter
-            System.Console.WriteLine( "\n" + (1.0f / args.Time).ToString() );
-
             SwapBuffers();
 
             base.OnRenderFrame( args );
@@ -114,7 +108,7 @@ namespace BlockGame.Glue
         {
             _renderer.OnResize( Size.X, Size.Y );
 
-            _camera.AdjustAspectRatio( Size.X, Size.Y );
+            _loader.Player.Camera.AdjustAspectRatio( Size.X, Size.Y );
 
             base.OnResize( args );
         }
