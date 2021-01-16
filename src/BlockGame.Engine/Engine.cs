@@ -52,7 +52,10 @@ namespace BlockGame.Glue
 
             ControlPlayer.BindPlayer( _loader.Player );
 
+            ControlPlayer.ScreenSize( Size.X, Size.Y );
+
             _renderer.LoadWorld( _loader.World, _loader.Player.Camera );
+
 
             base.OnLoad();
         }
@@ -107,6 +110,8 @@ namespace BlockGame.Glue
         protected override void OnResize( ResizeEventArgs args )
         {
             _renderer.OnResize( Size.X, Size.Y );
+
+            ControlPlayer.ScreenSize( Size.X, Size.Y );
 
             _loader.Player.Camera.AdjustAspectRatio( Size.X, Size.Y );
 

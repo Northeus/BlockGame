@@ -13,21 +13,17 @@ namespace BlockGame.Input
     /// </summary>
     public static class ControlPlayer
     {
-        /// <summary>
-        /// Mouse sensitivity.
-        /// </summary>
-        public static float Sensitivity = 0.1f;
-
-        /// <summary>
-        /// Player speed.
-        /// </summary>
-        public static float Speed = 5.0f;
-
         private static Player _player;
+
+        public static float _sensitivity = 1.0f * 100.0f;
 
         private static Vector2 _mousePos = new Vector2( 0.0f, 0.0f );
 
         private static bool _isFirstMouseMove = true;
+
+        private static int _width;
+
+        private static int _height;
 
         /// <summary>
         /// Bind camera, which should be controled.
@@ -40,6 +36,18 @@ namespace BlockGame.Input
             _isFirstMouseMove = true;
 
             _player = player;
+        }
+
+        /// <summary>
+        /// Load current screen size, so mouse speed will be set on all
+        /// screensizes same.
+        /// </summary>
+        /// <param cref="width"> Current width of window. </param>
+        /// <param cref="height"> Current heught of window. </param>
+        public static void ScreenSize( int width, int height )
+        {
+            _width = width;
+            _height = height;
         }
 
         /// <summary>
@@ -80,11 +88,12 @@ namespace BlockGame.Input
                 _player.Move( Player.Direction.Down, time );
             }
 
-            // TODO change equal on every screen size
             if ( ! _isFirstMouseMove )
             {
-                _player.Camera.RotationX += ( mouse.X - _mousePos.X ) * Sensitivity;
-                _player.Camera.RotationY -= ( mouse.Y - _mousePos.Y ) * Sensitivity;
+                _player.Rotate(
+                    ( mouse.X - _mousePos.X ) / _width * _sensitivity,
+                    ( mouse.Y - _mousePos.Y ) / _height * _sensitivity
+                );
             }
             else
             {

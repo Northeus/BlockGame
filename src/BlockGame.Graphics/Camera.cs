@@ -31,7 +31,7 @@ namespace BlockGame.Graphics
         /// <summary>
         /// Get only horizontal zoordinates ( X and Z ) of front.
         /// </summary>
-        public Vector3 FrontHorizontal => new Vector3( _front.X, 0.0f, _front.Z );
+        public Vector3 FrontHorizontal => new Vector3( _front.X, 0.0f, _front.Z ).Normalized();
 
         /// <summary>
         /// Camera's front vector.

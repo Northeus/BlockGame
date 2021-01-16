@@ -19,7 +19,7 @@ namespace BlockGame.Graphics
         /// <summary>
         /// Represent width of chunk in OpenGL coords.
         /// </summary>
-        public static readonly float ChunkWidth = BlockWidth * Chunk.ChunkSize;
+        public static readonly float ChunkWidth = BlockWidth * Chunk.Size;
 
         private static TextureAtlas _textureAtlas = new TextureAtlas(
             "../Resources/Atlas.png",
@@ -41,10 +41,7 @@ namespace BlockGame.Graphics
         public ChunkModel( World world, int x, int y, int z )
             : base( new Vertex[ 0 ] {}, new uint[ 0 ] {}, ChunkModel._textureAtlas.Handle )
         {
-            LoadInnerBlocks( world.WorldMap[ x, y, z ] );
-            LoadBoarderBlocks();
-
-            BufferData();
+            Update( world, x, y, z );
         }
 
         /// <summary>
@@ -56,8 +53,10 @@ namespace BlockGame.Graphics
         /// <param cref="z"> Third index into map of chunks. </param>
         public void Update( World world, int x, int y, int z )
         {
-            LoadInnerBlocks( world.WorldMap[ x, y, z] );
-            LoadBoarderBlocks();
+            _loadedVertices.Clear();
+            _loadedIndices.Clear();
+
+            Optimalization.LoadBlocks( this, world, x, y, z );
 
             BufferData();
         }
@@ -81,40 +80,6 @@ namespace BlockGame.Graphics
         {
             Vertices = _loadedVertices.ToArray();
             Indices = _loadedIndices.ToArray();
-        }
-
-        private void LoadInnerBlocks( Chunk chunk )
-        {
-            float startX = chunk.Pos.X * ChunkModel.ChunkWidth;
-            float startY = chunk.Pos.Y * ChunkModel.ChunkWidth;
-            float startZ = chunk.Pos.Z * ChunkModel.ChunkWidth;
-
-            for ( int x = 0; x < Chunk.ChunkSize; x++ )
-            {
-                for ( int y = 0; y < Chunk.ChunkSize; y++ )
-                {
-                    for ( int z = 0; z < Chunk.ChunkSize; z++ )
-                    {
-                        if ( chunk.Blocks[ x, y, z ] != Chunk.Block.Air )
-                        {
-                            AddCube(
-                                new Point(
-                                    startX + x * ChunkModel.BlockWidth,
-                                    startY + y * ChunkModel.BlockWidth,
-                                    startZ + z * ChunkModel.BlockWidth
-                                ),
-                                ( int ) chunk.Blocks[ x, y, z ]
-                            );
-                        }
-                    }
-                }
-            }
-        }
-
-        // TODO
-        private void LoadBoarderBlocks()
-        {
-            // TODO
         }
     }
 }

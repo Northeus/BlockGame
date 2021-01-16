@@ -45,6 +45,20 @@ namespace BlockGame.Game
             };
 #pragma warning restore CS8524
 
+        /// <summary>
+        /// Rotatte camera acording to give parameters.
+        /// </summary>
+        /// <param cref="rotationX"> Horizontal rotation value. </param>
+        /// <param cref="rotationY"> Vertical rotation value. </param>
+        public void Rotate( float rotationX, float rotationY )
+        {
+            _camera.RotationX += rotationX;
+            _camera.RotationY -= rotationY;
+        }
+
+        /// <summary>
+        /// Specify direction of movement.
+        /// </summary>
         public enum Direction
         {
             Front,
