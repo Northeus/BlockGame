@@ -69,6 +69,8 @@ namespace BlockGame.Graphics
         /// </summary>
         public static void Draw()
         {
+            Model.Bind();
+
             foreach ( ChunkModel model in _models.Values )
             {
                 model.Draw();

@@ -23,7 +23,7 @@ namespace BlockGame.Input
         /// </summary>
         public static float Speed = 5.0f;
 
-        private static Camera _camera;
+        private static Player _player;
 
         private static Vector2 _mousePos = new Vector2( 0.0f, 0.0f );
 
@@ -39,10 +39,9 @@ namespace BlockGame.Input
 
             _isFirstMouseMove = true;
 
-            _camera = player.Camera;
+            _player = player;
         }
 
-        // TODO put some functionality into the player class.
         /// <summary>
         /// Adjust camera via given input and delta time.
         /// </summary>
@@ -53,38 +52,39 @@ namespace BlockGame.Input
         {
             if ( keyboard.IsKeyDown( Keys.W ) )
             {
-                _camera.Position += _camera.FrontHorizontal * Speed * time;
+                _player.Move( Player.Direction.Front, time );
             }
 
             if ( keyboard.IsKeyDown( Keys.S ) )
             {
-                _camera.Position -= _camera.FrontHorizontal * Speed * time;
+                _player.Move( Player.Direction.Back, time );
             }
 
             if ( keyboard.IsKeyDown( Keys.A ) )
             {
-                _camera.Position -= _camera.RightHorizontal * Speed * time;
+                _player.Move( Player.Direction.Left, time );
             }
 
             if ( keyboard.IsKeyDown( Keys.D ) )
             {
-                _camera.Position += _camera.RightHorizontal * Speed * time;
+                _player.Move( Player.Direction.Right, time );
             }
 
             if ( keyboard.IsKeyDown( Keys.Space ) )
             {
-                _camera.Position += Vector3.UnitY * Speed * time;
+                _player.Move( Player.Direction.Jump, time );
             }
 
             if ( keyboard.IsKeyDown( Keys.LeftShift ) )
             {
-                _camera.Position -= Vector3.UnitY * Speed * time;
+                _player.Move( Player.Direction.Down, time );
             }
 
+            // TODO change equal on every screen size
             if ( ! _isFirstMouseMove )
             {
-                _camera.RotationX += ( mouse.X - _mousePos.X ) * Sensitivity;
-                _camera.RotationY -= ( mouse.Y - _mousePos.Y ) * Sensitivity;
+                _player.Camera.RotationX += ( mouse.X - _mousePos.X ) * Sensitivity;
+                _player.Camera.RotationY -= ( mouse.Y - _mousePos.Y ) * Sensitivity;
             }
             else
             {

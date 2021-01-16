@@ -60,8 +60,6 @@ namespace BlockGame.Graphics
             GL.Viewport( 0, 0, width, height );
         }
 
-        // TODO camera -> player ?
-        // TODO camera wrapper ?
         public void LoadWorld( World world, Camera camera )
         {
             _camera = camera;

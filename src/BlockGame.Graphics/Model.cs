@@ -150,7 +150,7 @@ namespace BlockGame.Graphics
         }
 
         /// <summary>
-        ///
+        /// Adjust matricies, which adjust view of OpenGL world.
         /// </summary>
         /// <param cref="view"> Matrix of view transformation. </param>
         /// <param cref="projection"> Matrix of projection transform. </param>
@@ -161,17 +161,23 @@ namespace BlockGame.Graphics
         }
 
         /// <summary>
+        /// Bind basic shader for rendering. Must be binded before calling
+        /// Draw method to ensue, that we use proper GLSL shader.
+        /// </summary>
+        public static void Bind()
+        {
+            Model._shader.Use();
+        }
+
+        /// <summary>
         /// Draw object stored in <c> _vertices </c>
         /// via indexes stored in <c> _indices </c>
         /// and use texture from <c> _texture </c>.
         /// Method will also set VAO to null.
         /// </summary>
+        /// <seealso cref="Bind"/>
         public void Draw()
         {
-            // TODO might be loaded once trough some function before draw batch.
-            Model._shader.Use();
-
-            // TODO also might have own triger to make more optimalized batching
             _texture.Use();
 
             GL.BindVertexArray( _vertexArrayObject );
