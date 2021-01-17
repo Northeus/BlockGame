@@ -33,7 +33,7 @@ namespace BlockGame.Game
         {
             _world = new World();
 
-            _player = new Player( new Camera( width, height ) );
+            _player = new Player( _world, new Camera( width, height ) );
         }
     }
 }

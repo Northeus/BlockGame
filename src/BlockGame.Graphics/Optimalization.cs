@@ -67,7 +67,6 @@ namespace BlockGame.Graphics
                 {
                     for ( int z = 0; z < Chunk.Size; z++ )
                     {
-                        System.Console.WriteLine( $"{x}/{y}/{z}");
                         if ( chunk.Blocks[ x, y, z ] != Chunk.Block.Air
                              && IsSurrounded( world, chunkX, chunkY, chunkZ, x, y, z
                         ) )

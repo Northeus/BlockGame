@@ -13,17 +13,34 @@ namespace BlockGame.Game
 
         private Camera _camera;
 
+        private World _world;
+
         /// <summary>
         /// Give acces to camera for rendering functions.
         /// </summary>
         public Camera Camera => _camera;
 
         /// <summary>
-        /// Constructor takes preinitialized camera object for his view.
+        /// Bind new world to player for testing colisions.
         /// </summary>
-        /// <param cref="camera"> Camera which will be used. </param>
-        public Player( Camera camera )
+        public World World
         {
+            set
+            {
+                _world = value;
+            }
+        }
+
+        /// <summary>
+        /// Constructor takes preinitialized camera object for his view
+        /// and world for block coliding.
+        /// </summary>
+        /// <param cref="world"> World which will be used. </param>
+        /// <param cref="camera"> Camera which will be used. </param>
+        public Player( World world, Camera camera )
+        {
+            _world = world;
+
             _camera = camera;
         }
 
