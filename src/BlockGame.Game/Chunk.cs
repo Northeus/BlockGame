@@ -39,9 +39,19 @@ namespace BlockGame.Game
                 {
                     for ( int z = 0; z < Size; z++ )
                     {
-                        if ( y < 4 || y > 10 )
+                        int actualHeight = posY * Chunk.Size + y;
+
+                        if ( actualHeight < 16 )
                         {
                             Blocks[ x, y, z ] = Block.Rock;
+                        }
+                        else if ( actualHeight < 20 )
+                        {
+                            Blocks[ x, y, z ] = Block.Dirt;
+                        }
+                        else if ( actualHeight < 21 )
+                        {
+                            Blocks[ x, y, z ] = Block.Grass;
                         }
                     }
                 }

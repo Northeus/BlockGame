@@ -32,16 +32,32 @@ namespace BlockGame.Game
         }
 
         /// <summary>
+        /// Holds current player's position ( camera position ).
+        /// </summary>
+        public Vector3 Position
+        {
+            get => _camera.Position;
+
+            set
+            {
+                _camera.Position = value;
+            }
+        }
+
+        /// <summary>
         /// Constructor takes preinitialized camera object for his view
         /// and world for block coliding.
         /// </summary>
         /// <param cref="world"> World which will be used. </param>
         /// <param cref="camera"> Camera which will be used. </param>
-        public Player( World world, Camera camera )
+        /// <param cref="position"> Cameras new position. </param>
+        public Player( World world, Camera camera, Vector3? position = null )
         {
             _world = world;
 
             _camera = camera;
+
+            _camera.Position = position ?? Position;
         }
 
         /// <summary>
@@ -50,8 +66,8 @@ namespace BlockGame.Game
         /// <param cref="direction"> Direction, in which is player moving. </param>
         /// <param cref="time"> Delta time ( time from last Move ) in ms. </param>
         public void Move( Direction direction, float time ) =>
-#pragma warning disable CS8524
-            _camera.Position += direction switch
+# pragma warning disable CS8524
+            Position += direction switch
             {
                 Direction.Front =>   _camera.FrontHorizontal * _speed * time,
                 Direction.Back  => - _camera.FrontHorizontal * _speed * time,
@@ -60,7 +76,7 @@ namespace BlockGame.Game
                 Direction.Jump  =>   Vector3.UnitY           * _speed * time,
                 Direction.Down  => - Vector3.UnitY           * _speed * time,
             };
-#pragma warning restore CS8524
+# pragma warning restore CS8524
 
         /// <summary>
         /// Rotatte camera acording to give parameters.

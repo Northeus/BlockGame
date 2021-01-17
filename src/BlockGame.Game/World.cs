@@ -11,17 +11,17 @@ namespace BlockGame.Game
         /// <summary>
         /// Width of world ( <c> WorldMap </c> ) in X's coordinate.
         /// </summary>
-        public static readonly int WidthX = 3;
+        public static readonly int WidthX = 8;
 
         /// <summary>
         /// Height of world ( <c> WorldMap </c> ) in Y's coordinate.
         /// </summary>
-        public static readonly int WidthZ = 3;
+        public static readonly int WidthZ = 8;
 
         /// <summary>
         /// Width of world ( <c> WorldMap </c> ) in Z's coordinate.
         /// </summary>
-        public static readonly int Height = 1;
+        public static readonly int Height = 4;
 
         /// <summary>
         /// Store chunks of world.

@@ -12,7 +12,7 @@ namespace BlockGame.Graphics
         /// <summary>
         /// Storing position of camera in worlds.
         /// </summary>
-        public Vector3 Position = Vector3.UnitZ * 3;
+        public Vector3 Position = Vector3.Zero;
 
         private Vector3 _front = -Vector3.UnitZ;
 

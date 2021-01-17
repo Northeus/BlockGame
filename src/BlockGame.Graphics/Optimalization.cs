@@ -12,7 +12,7 @@ namespace BlockGame.Graphics
     /// </summary>
     public static class Optimalization
     {
-        private static readonly int _RenderDistance = 1;
+        private static readonly int _RenderDistance = 100;
 
         /// <summary>
         /// Method which loads only chunks in render distance.
