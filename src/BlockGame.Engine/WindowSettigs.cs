@@ -8,10 +8,20 @@ namespace BlockGame.Glue
     /// </summary>
     public static class WindowSettings {
         /// <summary>
-        /// Disabled multi-threading and unlimited frequency as default.
+        /// Setting for gamewindow (native window wrapper ) which gives us
+        /// multi threading, vsync etc.
         /// </summary>
-        public static readonly GameWindowSettings GameWindow =
-            GameWindowSettings.Default;
+        public static GameWindowSettings GameWindow
+        {
+            get
+            {
+                var settings = GameWindowSettings.Default;
+
+                settings.IsMultiThreaded = true;
+
+                return settings;
+            }
+        }
 
         /// <summary>
         /// Settings for base window like size, title, fullscreen etc.
